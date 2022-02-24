@@ -6,9 +6,9 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        Main main = new Main();
-        //main.compulsory();
-        main.homework(args);
+        Main mainLab = new Main();
+        mainLab.compulsory();
+        mainLab.homework(args);
 
     }
 
