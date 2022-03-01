@@ -1,14 +1,15 @@
 package com.company;
 
 import java.util.Random;
-import java.util.Arrays;
+import java.util.*;
+import java.lang.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Main mainLab = new Main();
-        mainLab.compulsory();
-        mainLab.homework(args);
+        Main main = new Main();
+        //main.compulsory();
+        main.homework(args);
 
     }
 
@@ -63,54 +64,72 @@ public class Main {
         return 0;
     }
 
+    private Boolean checkArg(char[] a) {
+        for (char c : a) {
+            if (!Character.isDigit(c))
+                return false;
+        }
+        return true;
+    }
+
     void homework(String[] args) {
-        int n = Integer.parseInt(args[0]);
-        int p = Integer.parseInt(args[1]);
-        int m = args.length - 2;
-        String[] words = new String[n];
-        char[] alphabet = new char[m];
-        for (int i = 0; i < m; i++) {
-            alphabet[i] = args[i + 2].charAt(0);
+        char[] argument1 = new char[args[0].length()];
+        char[] argument2 = new char[args[1].length()];
+        for (int i = 0; i < args[0].length(); i++) {
+            argument1[i] = args[0].charAt(0);
         }
-        for (int i = 0; i < n; i++) {
-            String w = createRandomWord(p, alphabet);
-            words[i] = w;
+        for (int i = 0; i < args[1].length(); i++) {
+            argument2[i] = args[1].charAt(0);
         }
-        for (int i = 0; i < n; i++) {
-            System.out.println(words[i]);
-        }
-        Boolean[][] adjacency = new Boolean[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (neighbors(words[i], words[j]) == 1 && !words[i].equals(words[j]))
-                    adjacency[i][j] = Boolean.TRUE;
-                else
-                    adjacency[i][j] = Boolean.FALSE;
+        if (checkArg(argument1) == Boolean.TRUE && checkArg(argument2) == Boolean.TRUE) {
+            int n = Integer.parseInt(args[0]);
+            int p = Integer.parseInt(args[1]);
+            int m = args.length - 2;
+            String[] words = new String[n];
+            char[] alphabet = new char[m];
+            for (int i = 0; i < m; i++) {
+                alphabet[i] = args[i + 2].charAt(0);
             }
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(adjacency[i][j]+" ");
+            for (int i = 0; i < n; i++) {
+                String w = createRandomWord(p, alphabet);
+                words[i] = w;
             }
-            System.out.println();
-        }
-
-        String[][] dict = new String[n][n];
-        for(int i =0 ;i<n;i++){
-            for(int j = 0;j<n;j++){
-                if(neighbors(words[i],words[j])==1 && !words[i].equals(words[j])){
-                    dict[i][j]=words[j];
+            for (int i = 0; i < n; i++) {
+                System.out.println(words[i]);
+            }
+            Boolean[][] adjacency = new Boolean[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (neighbors(words[i], words[j]) == 1 && !words[i].equals(words[j]))
+                        adjacency[i][j] = Boolean.TRUE;
+                    else
+                        adjacency[i][j] = Boolean.FALSE;
                 }
-                else
-                    dict[i][j]="";
             }
-        }
-        for(int i =0 ;i<n;i++){
-            for(int j = 0;j<n;j++){
-               System.out.print(dict[i][j]+" ");
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(adjacency[i][j] + " ");
+                }
+                System.out.println();
             }
-            System.out.println();
-        }
 
+            String[][] dict = new String[n][n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (neighbors(words[i], words[j]) == 1 && !words[i].equals(words[j])) {
+                        dict[i][j] = words[j];
+                    } else
+                        dict[i][j] = "";
+                }
+            }
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(dict[i][j] + " ");
+                }
+                System.out.println();
+            }
+        } else {
+            System.out.println("Parametri gresiti");
+        }
     }
 }
