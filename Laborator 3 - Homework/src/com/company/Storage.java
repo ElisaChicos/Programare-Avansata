@@ -2,13 +2,13 @@ package com.company;
 
 public interface Storage {
     int getStorageCapacity();
-    default int StorageByte(int cap){
-        return cap * 1_000;
+    default int StorageByte(){
+        return getStorageCapacity() * 1_024 * 1_024 * 1_024;
     }
-    default int StorageKilobyte(int cap){
-        return cap * 100_000;
+    default int StorageKilobyte(){
+        return getStorageCapacity() * 1_024 * 1_024;
     }
-    default int StorageMegabyte(int cap){
-        return cap * 1_000_000;
+    default int StorageMegabyte(){
+        return getStorageCapacity() * 1_024;
     }
 }

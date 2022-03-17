@@ -14,9 +14,9 @@ public class Main {
         Router v5 = new Router("1");
         Computer v6 = new Computer("4", 45);
 
-//        System.out.println(v1.StorageByte(v1.getStorageCapacity()));
-//        System.out.println(v1.StorageKilobyte(v1.getStorageCapacity()));
-//        System.out.println(v1.StorageMegabyte(v1.getStorageCapacity()));
+        System.out.println(v1.StorageByte());
+        System.out.println(v1.StorageKilobyte());
+        System.out.println(v1.StorageMegabyte());
         v1.setName("A");
         v2.setName("A");
         v3.setName("A");
