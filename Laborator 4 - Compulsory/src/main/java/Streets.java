@@ -3,13 +3,9 @@
 public class Streets implements Comparable<Streets> {
     private String name;
     private int lenght;
-    private Intersections i1, i2;
+    private String i1, i2;
 
-    public Streets(String name)
-    {
-        this.name=name;
-    }
-    public Streets(String name, int lenght, Intersections i1, Intersections i2) {
+    public Streets(String name, int lenght, String i1, String i2) {
         this.name = name;
         this.lenght = lenght;
         this.i1 = i1;
@@ -32,19 +28,19 @@ public class Streets implements Comparable<Streets> {
         this.lenght = lenght;
     }
 
-    public Intersections getI1() {
+    public String getI1() {
         return i1;
     }
 
-    public void setI1(Intersections i1) {
+    public void setI1(String i1) {
         this.i1 = i1;
     }
 
-    public Intersections getI2() {
+    public String getI2() {
         return i2;
     }
 
-    public void setI2(Intersections i2) {
+    public void setI2(String i2) {
         this.i2 = i2;
     }
 
@@ -55,7 +51,7 @@ public class Streets implements Comparable<Streets> {
                 ", lenght=" + lenght +
                 ", i1=" + i1 +
                 ", i2=" + i2 +
-                '}';
+                "}\n";
     }
 
     @Override
