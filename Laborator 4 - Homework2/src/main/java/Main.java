@@ -8,12 +8,15 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Am creat 9 noduri cu stream
         var nodes = IntStream.rangeClosed(0, 9)
                 .mapToObj(i -> new Intersections("v" + i))
                 .toArray(Intersections[]::new);
 
         List<Intersections> intersectionList = new ArrayList<>(Arrays.asList(nodes));
         System.out.println(intersectionList);
+
+        //Lista de strazi si intersectiile
         List<Streets> streetList = new ArrayList<>();
         Streets s1 = new Streets("s1", 2, "v1", "v2");
         Streets s2 = new Streets("s2", 3, "v2", "v3");
@@ -51,35 +54,43 @@ public class Main {
 
 //        System.out.println(streetList);
 
+        //Ordonarea strazilor in functie de lungime
         List<Streets> newSortedList = streetList.stream()
                 .sorted(Comparator.comparing(Streets::getLenght))
                 .collect(Collectors.toList());
 
         System.out.println(newSortedList);
 
+        //Set de intersectii
         Set<Intersections> intersection_set = new HashSet<Intersections>();
 
         for (int i = 0; i < intersectionList.toArray().length; i++)
             intersection_set.add(intersectionList.get(i));
 
+        //Am verificat sa nu existe duplicate
         for (Intersections e : intersection_set) {
             int occurrences = Collections.frequency(intersection_set, e);
             if (occurrences > 1) {
                 System.out.println("Contine duplicate");
             }
         }
+
+        //Filter pentru strazile cu lungime mai mare decat 1
         List<Streets> intersectionsWithDifferentLenght = streetList
                 .stream()
                 .filter(c -> c.getLenght() > 1)
                 .collect(Collectors.toList());
         System.out.println(intersectionsWithDifferentLenght);
 
+
+        //Generare de nume random cu libraria Faker
         Faker faker = new Faker();
         for (int i = 0; i < streetList.size(); i++) {
             String firstName = faker.name().firstName();
             streetList.get(i).setName(firstName);
         }
 
+        //Map pentru city cu fiecare strada din fiecare intersectie
         Map<Intersections, List<Streets>> c = new HashMap<Intersections, List<Streets>>();
         c.put(intersectionList.get(0), Arrays.asList(s1, s8, s7));
         c.put(intersectionList.get(1), Arrays.asList(s1, s9, s2));

@@ -53,7 +53,7 @@ public class Streets implements Comparable<Streets> {
                 ", i2=" + i2 +
                 "}\n";
     }
-
+    //comparable
     @Override
     public int compareTo(Streets other) {
         if (this.getName() != null && other.getName() != null)
@@ -63,7 +63,7 @@ public class Streets implements Comparable<Streets> {
             return 0;
         }
     }
-
+    //Comparare lungime
     public boolean compareLenght(Streets other) {
         if (this.getLenght() != 0 && other.getLenght() != 0)
             return this.lenght > other.getLenght();
