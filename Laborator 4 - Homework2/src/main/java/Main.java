@@ -80,6 +80,22 @@ public class Main {
             streetList.get(i).setName(firstName);
         }
 
+        Map<Intersections, List<Streets>> c = new HashMap<Intersections, List<Streets>>();
+        c.put(intersectionList.get(0), Arrays.asList(s1, s8, s7));
+        c.put(intersectionList.get(1), Arrays.asList(s1, s9, s2));
+        c.put(intersectionList.get(2), Arrays.asList(s2, s12, s14,s3));
+        c.put(intersectionList.get(3), Arrays.asList(s3, s13, s4));
+        c.put(intersectionList.get(4), Arrays.asList(s4, s14, s15,s5));
+        c.put(intersectionList.get(5), Arrays.asList(s12, s11, s6));
+        c.put(intersectionList.get(6), Arrays.asList(s6, s7, s10));
+        c.put(intersectionList.get(7), Arrays.asList(s9, s8, s10,s16,s11));
+        c.put(intersectionList.get(8), Arrays.asList(s16, s13, s15));
+
+
+        City city = new City();
+        city.setCityMap(c);
+        System.out.println(c);
+
 
     }
 }
