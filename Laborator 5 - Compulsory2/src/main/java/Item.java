@@ -1,33 +1,47 @@
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-public abstract class Item {
-    private int id;
-    private String name;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Books.class, name = "book"),
+        @JsonSubTypes.Type(value = Article.class, name = "article")
+})
+
+public abstract class Item implements Serializable {
+    private String id;
+    private String title;
     private String location;
 
-    public Item()
-    {
-
-    }
-    public Item(int id, String name, String location) {
+    public Item(String id, String title, String location) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.location = location;
     }
+    public Item(){
 
-    public int getId() {
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLocation() {
@@ -38,12 +52,4 @@ public abstract class Item {
         this.location = location;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                '}';
-    }
 }

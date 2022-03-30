@@ -1,18 +1,24 @@
+import java.util.Map;
 
-
-public class LocalItems extends Item {
+public class Article extends Item {
     private int year;
     private String autor;
+    private String type;
 
-    public LocalItems(int year, String autor) {
+    public Article(String id, String title, String location, int year, String autor, String type) {
+        super(id, title, location);
         this.year = year;
         this.autor = autor;
+        this.type = type;
     }
 
-    public LocalItems(int id, String name, String location, int year, String autor) {
-        super(id, name, location);
+    public  Article(){
+
+    }
+    public Article(int year, String autor, String type) {
         this.year = year;
         this.autor = autor;
+        this.type = type;
     }
 
     public int getYear() {
@@ -31,11 +37,20 @@ public class LocalItems extends Item {
         this.autor = autor;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
-        return "LocatItems{" +
+        return "Article{" +
                 "year=" + year +
                 ", autor='" + autor + '\'' +
+                ", type=" + type +
                 '}';
     }
 }

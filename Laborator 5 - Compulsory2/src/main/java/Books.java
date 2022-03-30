@@ -1,20 +1,23 @@
+import java.util.Map;
 
-public class WebItems extends Item {
+public class Books extends Item {
     private int year;
     private String autor;
-    private int type;
 
-    public WebItems(int year, String autor, int type) {
+    public Books(String id, String title, String location, int year, String autor) {
+        super(id, title, location);
         this.year = year;
         this.autor = autor;
-        this.type = type;
+    }
+    public Books()
+    {
+
     }
 
-    public WebItems(int id, String name, String location, int year, String autor, int type) {
-        super(id, name, location);
+
+    public Books(int year, String autor) {
         this.year = year;
         this.autor = autor;
-        this.type = type;
     }
 
     public int getYear() {
@@ -33,20 +36,11 @@ public class WebItems extends Item {
         this.autor = autor;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     @Override
     public String toString() {
-        return "WebItems{" +
+        return "Books{" +
                 "year=" + year +
                 ", autor='" + autor + '\'' +
-                ", type=" + type +
                 '}';
     }
 }
