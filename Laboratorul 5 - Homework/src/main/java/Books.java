@@ -1,6 +1,7 @@
 import java.util.Map;
 
 public class Books extends Item {
+    //Clasa Books extinde clasa Item, prin urmare contine toate variabilele si in plus am adaugat autor si year
     private int year;
     private String autor;
 

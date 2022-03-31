@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Catalog implements Serializable {
+    //Clasa catalog contine o lista de Item-uri
     private List<Item> catalog = new ArrayList<>();
 
     public Catalog() {

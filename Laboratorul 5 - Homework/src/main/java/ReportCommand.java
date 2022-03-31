@@ -7,18 +7,13 @@ import freemarker.template.Template;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.nio.file.Files;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 @WebServlet(name = "MyServlet", urlPatterns = {"/"})
 public class ReportCommand {
+    //Report command formeaza un fisier HTML cu ajutorul Freemarker-ului si il afiseaza in browser
     public Catalog catalog;
 
     public ReportCommand() {
@@ -44,22 +39,17 @@ public class ReportCommand {
                 new File(Catalog.class.getResource("/Templates").toURI()));
 
         Template template = configuration.getTemplate("HTMLfile.ftl");
-        Writer writer = new OutputStreamWriter(System.out);
-        template.process(catalog, writer);
-    }
+        FileWriter fw = new FileWriter("C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\resources\\Templates\\fileEx.html");
+        template.process(catalog, fw);
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop desktop = Desktop.getDesktop();
+                File myFile = new File("C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\resources\\Templates\\fileEx.html");
+                desktop.open(myFile);
+            } catch (IOException ex) {}
+        }
 
-//    public void report(Catalog catalog,HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//
-//        response.setContentType("text/html;charset=UTF-8");
-//
-//
-//        request.setAttribute("catalog", catalog);
-//
-//        request.getRequestDispatcher("/HMLfile.ftl").forward(request, response);
-//
-//
-//    }
+    }
 
 
 }

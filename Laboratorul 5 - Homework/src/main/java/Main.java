@@ -1,7 +1,4 @@
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
+
 
 public class Main {
 
@@ -29,14 +26,11 @@ public class Main {
         a.listCommand(catalog2);
 
         ReportCommand r = new ReportCommand();
-//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-//        HttpServletResponse response = ((ServletRequestAttributes) requestAttributes).getResponse();
-//        r.doGet(catalog, request, response);
-        r.report(catalog);
+//        r.report(catalog);
 
 
         InfoCommand i = new InfoCommand();
-//        i.metadataDisplay("C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\resources\\Templates\\HTMLfile.ftl");
+//        i.metadataDisplay("C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\resources\\Templates\\fileEx.html");
 
     }
 

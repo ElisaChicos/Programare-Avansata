@@ -1,6 +1,7 @@
 import java.io.IOException;
 
 public class SaveCommand {
+    //Salveaza continutul catalofului intr-un fisier .json
     public Catalog catalog;
 
     public SaveCommand(Catalog catalog) {

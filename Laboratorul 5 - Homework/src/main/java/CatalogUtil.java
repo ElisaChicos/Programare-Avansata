@@ -3,7 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 
 public class CatalogUtil {
-
+    //CatalogUtil contine doua functii statice care formeaza un json si extrage continutul unui fiser json
     public static void save(Catalog catalog, String path) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(

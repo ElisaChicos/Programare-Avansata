@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListCommand extends Command {
+    //ListCommand afiseaza continutul catalogului
     private Catalog catalog;
 
     public ListCommand(Catalog catalog) {

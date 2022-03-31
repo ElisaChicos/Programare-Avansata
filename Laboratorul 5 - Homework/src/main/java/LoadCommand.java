@@ -1,6 +1,7 @@
 import java.io.IOException;
 
 public class LoadCommand {
+    //LoadCommand citeste un fisier .json si memoreaza continul acestuia in catalog
     public Catalog catalog;
 
     public LoadCommand(Catalog catalog) {

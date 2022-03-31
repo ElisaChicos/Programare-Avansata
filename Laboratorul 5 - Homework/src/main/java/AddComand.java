@@ -1,5 +1,6 @@
 
 public class AddComand {
+    //Clasa Add adauga un element de tip Item in catalog
     public Catalog catalog;
 
     public AddComand(Catalog catalog) {

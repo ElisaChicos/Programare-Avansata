@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 
 
 public class InfoCommand {
+    //Clasa InfoCommand afiseaza medatatele
     String file;
 
     public InfoCommand(String file) {

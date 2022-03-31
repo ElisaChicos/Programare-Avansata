@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ViewCommand {
+    //Deschise un fisier din laptop utilizand clasa Desktop
     public Catalog catalog;
 
     public ViewCommand(Catalog catalog) {
