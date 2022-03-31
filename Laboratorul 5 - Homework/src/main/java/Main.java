@@ -12,25 +12,27 @@ public class Main {
         ac.addItem(item2, catalog);
 
         ListCommand a = new ListCommand();
-//        a.listCommand(catalog);
+        a.listCommand(catalog);
+        a.execute(catalog,item1);
 
         ViewCommand v = new ViewCommand();
-//        v.openItem("E:\\Downloads\\gauss.txt");
+//        v.execute(catalog,item1);
 
         SaveCommand s = new SaveCommand();
-        s.SaveJsonCatalog(catalog, "C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\java\\input.json");
+//        s.execute(catalog,item1);
+
 
         LoadCommand l = new LoadCommand();
-        Catalog catalog2 = l.LoadJson("C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\java\\input.json");
-
-        a.listCommand(catalog2);
+//        l.execute(catalog,item1);
 
         ReportCommand r = new ReportCommand();
-//        r.report(catalog);
+//        r.execute(catalog,item1);
 
 
         InfoCommand i = new InfoCommand();
-//        i.metadataDisplay("C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\resources\\Templates\\fileEx.html");
+        i.execute(catalog,item1);
+
+
 
     }
 

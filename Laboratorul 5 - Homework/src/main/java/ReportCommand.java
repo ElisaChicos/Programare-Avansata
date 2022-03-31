@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 
 
 @WebServlet(name = "MyServlet", urlPatterns = {"/"})
-public class ReportCommand {
+public class ReportCommand implements Command {
     //Report command formeaza un fisier HTML cu ajutorul Freemarker-ului si il afiseaza in browser
     public Catalog catalog;
 
@@ -51,6 +51,9 @@ public class ReportCommand {
 
     }
 
-
+    @Override
+    public void execute(Catalog catalog, Item obj) throws Exception {
+        report(catalog);
+    }
 }
 

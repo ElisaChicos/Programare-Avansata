@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class SaveCommand {
+public class SaveCommand implements Command {
     //Salveaza continutul catalofului intr-un fisier .json
     public Catalog catalog;
 
@@ -18,7 +18,14 @@ public class SaveCommand {
         this.catalog = catalog;
     }
 
-    public void SaveJsonCatalog(Catalog catalog,String path) throws IOException {
+    public void SaveJsonCatalog(Catalog catalog,String path) throws IOException, InvalidCatalogException {
         CatalogUtil.save(catalog,path);
+    }
+
+
+
+    @Override
+    public void execute(Catalog catalog, Item obj) throws IOException, InvalidCatalogException {
+        SaveJsonCatalog(catalog,"C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\java\\input.json");
     }
 }

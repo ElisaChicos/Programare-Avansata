@@ -12,7 +12,7 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.SAXException;
 
 
-public class InfoCommand {
+public class InfoCommand implements Command {
     //Clasa InfoCommand afiseaza medatatele
     String file;
 
@@ -48,5 +48,11 @@ public class InfoCommand {
             System.out.println(name + ": " + metadata.get(name));
         }
 
+    }
+
+
+    @Override
+    public void execute(Catalog catalog,Item obj) throws TikaException, IOException, SAXException {
+        metadataDisplay("C:\\Users\\chico\\Documents\\GitHub\\Programare-Avansata\\Laboratorul 5 - Homework\\src\\main\\resources\\Templates\\fileEx.html");
     }
 }

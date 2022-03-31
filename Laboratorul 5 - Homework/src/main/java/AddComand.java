@@ -1,5 +1,5 @@
 
-public class AddComand {
+public class AddComand implements Command {
     //Clasa Add adauga un element de tip Item in catalog
     public Catalog catalog;
 
@@ -21,5 +21,10 @@ public class AddComand {
 
     public void addItem(Item i,Catalog catalog){
         catalog.add(i);
+    }
+
+    @Override
+    public void execute(Catalog catalog,Item obj) {
+        addItem(obj, catalog);
     }
 }

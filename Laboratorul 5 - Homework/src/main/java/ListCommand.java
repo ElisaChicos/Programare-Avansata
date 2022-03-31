@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListCommand extends Command {
+public class ListCommand implements Command {
     //ListCommand afiseaza continutul catalogului
     private Catalog catalog;
 
@@ -29,4 +29,9 @@ public class ListCommand extends Command {
                    catalog.getCatalog().get(i).getLocation()+ ", " +catalog.getCatalog().get(i));
     }
 
+
+    @Override
+    public void execute(Catalog catalog,Item obj) {
+        listCommand(catalog);
+    }
 }

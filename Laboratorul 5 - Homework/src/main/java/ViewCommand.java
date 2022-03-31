@@ -1,8 +1,10 @@
+import org.checkerframework.checker.units.qual.C;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class ViewCommand {
+public class ViewCommand implements Command {
     //Deschise un fisier din laptop utilizand clasa Desktop
     public Catalog catalog;
 
@@ -35,4 +37,8 @@ public class ViewCommand {
         }
     }
 
+    @Override
+    public void execute(Catalog catalog, Item obj) {
+        openItem("E:\\Downloads\\gauss.txt");
+    }
 }

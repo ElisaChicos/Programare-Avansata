@@ -4,7 +4,7 @@ import java.io.*;
 
 public class CatalogUtil {
     //CatalogUtil contine doua functii statice care formeaza un json si extrage continutul unui fiser json
-    public static void save(Catalog catalog, String path) throws IOException {
+    public static void save(Catalog catalog, String path) throws InvalidCatalogException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(
                 new File(path),
