@@ -6,7 +6,7 @@ import java.util.List;
 public class Game {
     private final Bag bag = new Bag();
     private final Board board = new Board();
-    private final Dictionary dictionary = new MockDictionary();
+    private final Dictionary dictionary = new Dictionary();
     private final List<Player> players = new ArrayList<>();
 
     public Game() {
@@ -33,17 +33,11 @@ public class Game {
         player.setGame(this);
     }
     public void play() {
-        for (Player player : players) {
-//            start a new Thread representing the player;
-            Thread thread = new Thread();
-            thread.start();
+        while(bag.getLetters().size()!=0){
+
+            new Thread(players.get(0)).start();
+            new Thread(players.get(1)).start();
+            new Thread(players.get(2)).start();
         }
-    }
-    public static void main(String args[]) {
-        Game game = new Game();
-        game.addPlayer(new Player("Player 1"));
-        game.addPlayer(new Player("Player 2"));
-        game.addPlayer(new Player("Player 3"));
-        game.play();
     }
 }

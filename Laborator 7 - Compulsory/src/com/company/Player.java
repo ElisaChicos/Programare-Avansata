@@ -38,18 +38,26 @@ public class Player implements Runnable {
 
     private boolean submitWord() throws InterruptedException {
         List<Tile> extracted = game.getBag().extractTiles(7);
+        StringBuilder word = new StringBuilder();
+        for(int i =0;i<extracted.size();i++)
+        {
+            word.append(extracted.get(i).getLetter());
+        }
+
         if (extracted.isEmpty()) {
             return false;
         }
-//        create a word with all the extracted tiles;
-
-        String word = "" ;
-        game.getBoard().addWord(this, word);
+        
+        game.getBoard().addWord(this, word.toString());
         sleep(50);
         return true;
     }
     public void run()
     {
-
+        try {
+            submitWord();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

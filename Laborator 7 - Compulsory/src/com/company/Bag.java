@@ -13,7 +13,9 @@ public class Bag {
     public Bag() {
         for (char c = 'a'; c < 'z'; c++) {
            letters.add(new Tile(c,rand.nextInt(11)));
+
         }
+        System.out.println(letters.size());
     }
 
     public List<Tile> getBag() {
@@ -30,8 +32,11 @@ public class Bag {
             if (letters.isEmpty()) {
                 break;
             }
-            extracted.add(letters.get(rand.nextInt(letters.size())));
+            int random = rand.nextInt(letters.size());
+            extracted.add(letters.get(random));
+            letters.remove(letters.get(random));
         }
+
         return extracted;
     }
 

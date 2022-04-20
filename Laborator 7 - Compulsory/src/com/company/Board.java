@@ -13,7 +13,7 @@ public class Board {
         return words;
     }
 
-    public void addWord(Player player, String word) {
+    public synchronized void addWord(Player player, String word) {
         words.add(word);
         System.out.println(player.getName() + ": " + word);
     }
