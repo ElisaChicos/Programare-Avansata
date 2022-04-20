@@ -47,7 +47,7 @@ public class Player implements Runnable {
         if (extracted.isEmpty()) {
             return false;
         }
-        
+
         game.getBoard().addWord(this, word.toString());
         sleep(50);
         return true;
