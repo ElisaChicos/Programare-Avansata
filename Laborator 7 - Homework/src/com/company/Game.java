@@ -2,10 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import static java.lang.Thread.currentThread;
-import static java.lang.Thread.sleep;
 
 public class Game {
     private final Bag bag = new Bag();
