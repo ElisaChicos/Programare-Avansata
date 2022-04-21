@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 public class Game {
@@ -48,24 +49,19 @@ public class Game {
     public void play() throws InterruptedException {
         DaemonThread daemon = new DaemonThread();
         daemon.setDaemon(true);
-        long startTime = System.nanoTime();
         daemon.start();
-        daemon.join(10000);
-        if (daemon.isAlive())
-        {
-            daemon.stop();
-            long stopTime = System.nanoTime();
-            System.out.println(stopTime - startTime);
-        }
-        long stopTime = System.nanoTime();
-
+        long startTime = System.nanoTime();
+        long start = System.currentTimeMillis();
+        long end = start + 30 * 1000;
         turn = players.get(0).getId();
-        while (bag.getLetters().size() != 0) {
+
+        while (System.currentTimeMillis() < end && bag.getLetters().size() != 0) {
             new Thread(players.get(0)).start();
             new Thread(players.get(1)).start();
             new Thread(players.get(2)).start();
         }
 
+        long stopTime = System.nanoTime();
         int score = 0;
         Player winner = players.get(0);
         for (Player player : players) {
@@ -75,7 +71,7 @@ public class Game {
             }
         }
         System.out.println("The winner is " + winner.getName() + " with the score:" + score);
-        System.out.println("Time: "+(stopTime - startTime));
+        System.out.println("Time: " + (stopTime - startTime)/1000);
         System.exit(-1);
     }
 }
