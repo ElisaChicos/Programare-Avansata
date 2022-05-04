@@ -1,25 +1,27 @@
 import java.sql.*;
 
 public class Continent {
-    public void create(String name) throws SQLException {
-        Connection con = Database.getConnection();
-        try (PreparedStatement pstmt = con.prepareStatement(
-                "insert into continents (name) values (?)")) {
-            pstmt.setString(1, name);
-            pstmt.executeUpdate();
-        }
+    Integer id;
+    String name;
+
+    public Continent(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Integer findByName(String name) throws SQLException {
-        Connection con = Database.getConnection();
-        try (Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery(
-                     "select id from continents where name='" + name + "'")) {
-            return rs.next() ? rs.getInt(1) : null;
-        }
+    public Integer getId() {
+        return id;
     }
 
-    public String findById(int id) throws SQLException {
-        return "";
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -5,16 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>Laborator 8 - Compulsory</artifactId>
+    <artifactId>Laborator-8-Compulsory</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>42.3.3</version>
-    </dependency>
+
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>ojdbc</groupId>
+            <artifactId>ojdbc</artifactId>
+            <version>14</version>
+            <scope>system</scope>
+            <systemPath>E:/Downloads/ojdbc11.jar</systemPath>
+        </dependency>
+    </dependencies>
 
 </project>
