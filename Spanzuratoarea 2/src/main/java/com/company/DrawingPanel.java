@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +15,6 @@ import java.util.Locale;
 
 public class DrawingPanel extends JPanel {
     final MainFrame frame;
-    private int x, y;
     private int rows, cols;
     private int boardWidth, boardHeight;
     private int cellWidth, cellHeight;
@@ -24,19 +22,10 @@ public class DrawingPanel extends JPanel {
     private final int canvasWidth = 800, canvasHeight = 600;
     private BufferedImage image;
     private Graphics2D offscreen;
-    private int incercari = 8;
+    private int incercari = 7;
     private int lungime;
-
-//    private List<Square> squares;
-//    private Map<Stone, Player> positions;
-//    private Board board;
-//    private Stone previousStone;
-//    private boolean endOfGame;
-//    Player player;
-//    private Game game;
-//    int turn;
-//    List<Player> players = new ArrayList<>();
-//    private MouseAdapter mouse;
+    private int gresite = 0;
+    private int ghicite = 0;
 
 
     public Boolean verificareCategorie(String categorie) {
@@ -88,36 +77,6 @@ public class DrawingPanel extends JPanel {
     }
 
 
-    public void selectGridSize() {
-        frame.configPanel.modifyHelpMessage("Select size of the board: ");
-        frame.canvas.setLayout(null);
-        JSpinner width = new JSpinner(new SpinnerNumberModel(3, 3, 10, 1));
-        JSpinner height = new JSpinner(new SpinnerNumberModel(3, 3, 10, 1));
-        JButton nextButton = new JButton("Next");
-        JLabel numberOfRows = new JLabel("Number of rows:");
-        JLabel numberOfCols = new JLabel("Number of cols:");
-        width.setBounds(400, 150, 150, 40);
-        height.setBounds(400, 250, 150, 40);
-        nextButton.setBounds(250, 350, 300, 40);
-        numberOfRows.setBounds(250, 250, 100, 40);
-        numberOfCols.setBounds(250, 150, 100, 40);
-        nextButton.addActionListener(e -> {
-            rows = (int) height.getValue() + 1;
-            cols = (int) width.getValue() + 1;
-            frame.canvas.remove(width);
-            frame.canvas.remove(height);
-            frame.canvas.remove(nextButton);
-            frame.canvas.remove(numberOfCols);
-            frame.canvas.remove(numberOfRows);
-            repaint();
-            selectColorAndIcon();
-        });
-        frame.canvas.add(numberOfRows);
-        frame.canvas.add(numberOfCols);
-        frame.canvas.add(height);
-        frame.canvas.add(width);
-        frame.canvas.add(nextButton);
-    }
 
     public void selectColorAndIcon() {
         frame.configPanel.modifyHelpMessage("Select color: ");
@@ -158,21 +117,19 @@ public class DrawingPanel extends JPanel {
         JButton nextButton = new JButton("Start joc");
         JLabel labelCategorie = new JLabel("Categorie: ");
         JTextField categorie = new JTextField();
-//        BufferedImage myPicture = ImageIO.read(new File("Img/background.png"));
-//        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
         frame.canvas.setLayout(null);
 
-//        frame.canvas.add(picLabel);
         frame.canvas.add(label);
         frame.canvas.add(labelCategorie);
         frame.canvas.add(categorie);
         frame.canvas.add(nextButton);
 
-//        picLabel.setBounds(10,10,600,600);
+
         label.setBounds(200, 50, 500, 150);
         labelCategorie.setBounds(250, 200, 150, 40);
         categorie.setBounds(350, 200, 200, 40);
         nextButton.setBounds(250, 300, 300, 40);
+
         nextButton.addActionListener(e -> {
             if (verificareCategorie(categorie.getText())) {
                 frame.canvas.remove(label);
@@ -321,9 +278,8 @@ public class DrawingPanel extends JPanel {
             lungime--;
             listaLabel.add(label);
         }
-
+        lungime = word.length();
         A.addActionListener(e -> {
-
             frame.canvas.remove(A);
             repaint();
             Icon icon = new ImageIcon("Img/A_press.png");
@@ -333,22 +289,94 @@ public class DrawingPanel extends JPanel {
             Game g = new Game();
             List<Integer> lista = g.cautareLitera("a", word);
             if (lista.size() == 0) {
-                frame.canvas.remove(labelIncercari);
-                repaint();
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
                 incercari--;
-                JLabel labelIncercariNou = new JLabel("Numarul de incercari ramase: " + incercari);
-                frame.canvas.add(labelIncercariNou);
-                labelIncercariNou.setBounds(60, 10, 500, 150);
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);//
             } else {
                 for (int i = 0; i < lungime; i++) {
                     if (lista.contains(i)) {
                         listaLabel.get(i).setText("<html><h1>A</h1></html>");
+                        ghicite++;
                     }
-                    repaint();
                 }
+
             }
             System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
+
+
         B.addActionListener(e -> {
             frame.canvas.remove(B);
             repaint();
@@ -356,6 +384,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(110, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("b", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>B</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         C.addActionListener(e -> {
             frame.canvas.remove(C);
@@ -364,6 +480,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(170, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("c", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>C</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         D.addActionListener(e -> {
             frame.canvas.remove(D);
@@ -372,6 +576,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(230, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("d", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>D</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         E.addActionListener(e -> {
             frame.canvas.remove(E);
@@ -380,6 +672,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(290, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("e", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>E</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         F.addActionListener(e -> {
             frame.canvas.remove(F);
@@ -388,6 +768,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(350, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("f", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>F</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         G.addActionListener(e -> {
             frame.canvas.remove(G);
@@ -396,6 +864,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(410, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("g", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>G</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         H.addActionListener(e -> {
             frame.canvas.remove(H);
@@ -404,6 +960,95 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(470, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("h", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>H</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         I.addActionListener(e -> {
             frame.canvas.remove(I);
@@ -412,6 +1057,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(530, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("i", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>I</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         J.addActionListener(e -> {
             frame.canvas.remove(J);
@@ -420,6 +1153,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(590, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("j", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>J</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         K.addActionListener(e -> {
             frame.canvas.remove(K);
@@ -428,6 +1249,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(650, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("k", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>K</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         L.addActionListener(e -> {
             frame.canvas.remove(L);
@@ -436,6 +1345,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(710, 450, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("l", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>L</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         M.addActionListener(e -> {
             frame.canvas.remove(M);
@@ -444,6 +1441,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(20, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("m", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>M</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         N.addActionListener(e -> {
             frame.canvas.remove(N);
@@ -452,6 +1537,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(80, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("n", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>N</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         O.addActionListener(e -> {
             frame.canvas.remove(O);
@@ -460,6 +1633,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(140, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("o", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>O</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         P.addActionListener(e -> {
             frame.canvas.remove(P);
@@ -468,6 +1729,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(200, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("p", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>P</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         R.addActionListener(e -> {
             frame.canvas.remove(R);
@@ -476,6 +1825,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(260, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("r", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>R</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         S.addActionListener(e -> {
             frame.canvas.remove(S);
@@ -484,6 +1921,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(320, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("s", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>S</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         T.addActionListener(e -> {
             frame.canvas.remove(T);
@@ -492,6 +2017,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(380, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("t", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>T</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         U.addActionListener(e -> {
             frame.canvas.remove(U);
@@ -500,6 +2113,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(440, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("u", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>U</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         V.addActionListener(e -> {
             frame.canvas.remove(V);
@@ -508,6 +2209,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(500, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("v", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>V</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         W.addActionListener(e -> {
             frame.canvas.remove(W);
@@ -516,6 +2305,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(560, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("w", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>W</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         X.addActionListener(e -> {
             frame.canvas.remove(X);
@@ -524,6 +2401,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(620, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("x", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>X</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         Y.addActionListener(e -> {
             frame.canvas.remove(Y);
@@ -532,6 +2497,94 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(680, 510, 45, 45);
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("y", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>Y</h1></html>");
+                        ghicite++;
+                    }
+                }
+
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                repaint();
+            }
         });
         Z.addActionListener(e -> {
             frame.canvas.remove(Z);
@@ -540,47 +2593,174 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(740, 510, 45, 45);
-        });
-    }
+            Game g = new Game();
+            List<Integer> lista = g.cautareLitera("z", word);
+            if (lista.size() == 0) {
+                gresite++;
+                switch (gresite) {
+                    case 1:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/2.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/3.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 3:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/4.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 4:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/5.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 5:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/6.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 6:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/7.png"))));
+                            repaint();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    case 7:
+                        try {
+                            picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/final.png"))));
+                            repaint();
+                            frame.canvas.removeAll();
+                            aiPierdut(word);
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        break;
+                    default:
+                        // code block
+                }
+                incercari--;
+                labelIncercari.setText("Numarul de incercari ramase: " + incercari);
+            } else {
+                for (int i = 0; i < lungime; i++) {
+                    if (lista.contains(i)) {
+                        listaLabel.get(i).setText("<html><h1>Z</h1></html>");
+                        ghicite++;
+                    }
+                }
 
-    public void start() {
-        frame.configPanel.modifyHelpMessage("You are playing with the other users. Login first: ");
-        JButton loginButton = new JButton("Login");
-        JLabel labelName = new JLabel("Username: ");
-        JTextField username = new JTextField();
-        JLabel labelPassword = new JLabel("Password: ");
-        JTextField password = new JTextField();
-        frame.canvas.setLayout(null);
-
-        labelName.setBounds(250, 150, 150, 40);
-        username.setBounds(350, 150, 200, 40);
-        labelPassword.setBounds(250, 250, 150, 40);
-        password.setBounds(350, 250, 200, 40);
-        loginButton.setBounds(250, 350, 300, 40);
-
-        loginButton.addActionListener(e -> {
-            if (checkCredentials(username.getText(), password.getText())) {
-                frame.canvas.remove(loginButton);
-                frame.canvas.remove(labelName);
-                frame.canvas.remove(username);
-                frame.canvas.remove(labelPassword);
-                frame.canvas.remove(password);
+            }
+            System.out.println(lista);
+            if (ghicite == lungime) {
+                try {
+                    picLabel.setIcon(new ImageIcon(ImageIO.read(new File("Img/win.png"))));
+                    frame.canvas.removeAll();
+                    aiCastigat(word);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 repaint();
-                selectGridSize();
             }
         });
-        frame.canvas.add(labelName);
-        frame.canvas.add(username);
-        frame.canvas.add(labelPassword);
-        frame.canvas.add(password);
-        frame.canvas.add(loginButton);
+    }
+    public void aiCastigat(String cuvant) throws IOException {
+        frame.configPanel.modifyHelpMessage("Felicitari!");
+        BufferedImage myPicture = ImageIO.read(new File("Img/win2.png"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        JLabel label2 = new JLabel("<html><h1>Ai ghicit!</h1></html>");
+        JLabel label = new JLabel("<html><h1>Cuvantul introdus: ");
+        JButton newGame = new JButton("Joaca din nou!");
+        JButton exit = new JButton("Exit");
+        label.setText(label.getText() + cuvant);
+        frame.canvas.setLayout(null);
+
+        frame.canvas.add(picLabel);
+        frame.canvas.add(label);
+        frame.canvas.add(label2);
+        frame.canvas.add(newGame);
+        frame.canvas.add(exit);
+        picLabel.setBounds(3, 5, 200, 500);
+        label2.setBounds(450, 100, 500, 100);
+        label.setBounds(350, 150, 500, 100);
+        newGame.setBounds(350, 300, 300, 40);
+        exit.setBounds(350, 350, 300, 40);
+
+
+        newGame.addActionListener(e->{
+            try {
+                frame.canvas.removeAll();
+                repaint();
+                incercari = 7;
+                gresite = 0;
+                ghicite = 0;
+                startGame();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        exit.addActionListener(e-> frame.dispose());
+
     }
 
-    public boolean checkCredentials(String username, String password) {
-        System.out.println(username);
-        System.out.println(password);
-        return true;
+    public void aiPierdut(String cuvant) throws IOException {
+        frame.configPanel.modifyHelpMessage("Ai pierdut!");
+        BufferedImage myPicture = ImageIO.read(new File("Img/final.png"));
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        JLabel label2 = new JLabel("<html><h1>Ai pierdut!</h1></html>");
+        JLabel label = new JLabel("<html><h1>Cuvantul introdus: ");
+        JButton newGame = new JButton("Incearca din nou!");
+        JButton exit = new JButton("Exit");
+        label.setText(label.getText() + cuvant);
+        frame.canvas.setLayout(null);
+
+        frame.canvas.add(picLabel);
+        frame.canvas.add(label);
+        frame.canvas.add(label2);
+        frame.canvas.add(newGame);
+        frame.canvas.add(exit);
+        picLabel.setBounds(3, 5, 200, 500);
+        label2.setBounds(450, 100, 500, 100);
+        label.setBounds(350, 150, 500, 100);
+        newGame.setBounds(350, 300, 300, 40);
+        exit.setBounds(350, 350, 300, 40);
+
+
+        newGame.addActionListener(e->{
+            try {
+                frame.canvas.removeAll();
+                repaint();
+                incercari = 7;
+                gresite = 0;
+                ghicite = 0;
+                startGame();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        exit.addActionListener(e-> frame.dispose());
+
     }
+
 
     @Override
     public void update(Graphics g) {
@@ -596,8 +2776,6 @@ public class DrawingPanel extends JPanel {
         createOffscreenImage();
         repaint();
         paintGrid();
-//        getStonesCoordinates();
-        // frame.canvas.removeMouseListener(mouse);
     }
 
     private void paintGrid() {
