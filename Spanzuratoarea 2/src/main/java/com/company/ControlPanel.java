@@ -28,9 +28,9 @@ public class ControlPanel extends JPanel {
         setLayout(new GridBagLayout());
 
         picLabel.setBounds(10,5,600,600);
-        label.setBounds(300, 250, 200, 40);
-        startButton.setBounds(250, 350, 300, 40);
-        exitButton.setBounds(250, 450, 300, 40);
+        label.setBounds(370, 250, 200, 40);
+        startButton.setBounds(300, 350, 300, 40);
+        exitButton.setBounds(300, 400, 300, 40);
 
         frame.add(picLabel);
         frame.add(label);

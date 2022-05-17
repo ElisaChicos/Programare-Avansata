@@ -9,7 +9,6 @@ basm
 roman
 simbolism
 modernism
-neomodernism
 balada
 strofa
 clasicism

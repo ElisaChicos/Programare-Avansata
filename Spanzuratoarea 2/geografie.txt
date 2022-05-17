@@ -3,17 +3,13 @@ continent
 emisfera
 fluviu
 geotermala
-atomocentrala
 crater
 depresiune
-hidrocentrala
 laguna
 lunca
 munti
 orogeneza
 sedimentare
-termocentrala
-biodiversitate
 vulcan
 ciclon
 ecuator

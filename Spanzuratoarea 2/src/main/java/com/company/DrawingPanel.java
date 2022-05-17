@@ -15,10 +15,6 @@ import java.util.Locale;
 
 public class DrawingPanel extends JPanel {
     final MainFrame frame;
-    private int rows, cols;
-    private int boardWidth, boardHeight;
-    private int cellWidth, cellHeight;
-    private int padX, padY;
     private final int canvasWidth = 800, canvasHeight = 600;
     private BufferedImage image;
     private Graphics2D offscreen;
@@ -59,13 +55,6 @@ public class DrawingPanel extends JPanel {
     }
 
     private void init() {
-        this.padX = 30;
-        this.padY = 30;
-        this.cellWidth = (canvasWidth - 2 * padX) / (cols - 1);
-        this.cellHeight = (canvasHeight - 2 * padY) / (rows - 1);
-        this.boardWidth = (cols - 1) * cellWidth;
-        this.boardHeight = (rows - 1) * cellHeight;
-
         setPreferredSize(new Dimension(canvasWidth, canvasHeight));
         setBorder(BorderFactory.createEtchedBorder());
         this.addMouseListener(new MouseAdapter() {
@@ -76,39 +65,6 @@ public class DrawingPanel extends JPanel {
         });
     }
 
-
-
-    public void selectColorAndIcon() {
-        frame.configPanel.modifyHelpMessage("Select color: ");
-        frame.canvas.setLayout(null);
-
-        JButton nextButton = new JButton("Next");
-        JButton changeColorButton = new JButton("Change color");
-        JLabel labelChosenColor = new JLabel("Current color: ");
-        JButton chosenColor = new JButton("");
-        labelChosenColor.setBounds(250, 150, 150, 40);
-        chosenColor.setBounds(400, 150, 150, 40);
-        chosenColor.setBackground(Color.red);
-        changeColorButton.setBounds(250, 250, 300, 40);
-        nextButton.setBounds(250, 350, 300, 40);
-        nextButton.addActionListener(e -> {
-            frame.canvas.remove(labelChosenColor);
-            frame.canvas.remove(changeColorButton);
-            frame.canvas.remove(nextButton);
-            frame.canvas.remove(chosenColor);
-            repaint();
-            reinitializeCanvas();
-        });
-        changeColorButton.addActionListener(e -> {
-            Color color = JColorChooser.showDialog(frame.canvas, "Select a Color", Color.white);
-            chosenColor.setBackground(color);
-
-        });
-        frame.canvas.add(labelChosenColor);
-        frame.canvas.add(changeColorButton);
-        frame.canvas.add(nextButton);
-        frame.canvas.add(chosenColor);
-    }
 
     public void startGame() throws IOException {
 
@@ -279,6 +235,8 @@ public class DrawingPanel extends JPanel {
             listaLabel.add(label);
         }
         lungime = word.length();
+
+
         A.addActionListener(e -> {
             frame.canvas.remove(A);
             repaint();
@@ -2699,12 +2657,11 @@ public class DrawingPanel extends JPanel {
         frame.canvas.add(label2);
         frame.canvas.add(newGame);
         frame.canvas.add(exit);
-        picLabel.setBounds(3, 5, 200, 500);
+        picLabel.setBounds(70, 5, 200, 500);
         label2.setBounds(450, 100, 500, 100);
         label.setBounds(350, 150, 500, 100);
         newGame.setBounds(350, 300, 300, 40);
         exit.setBounds(350, 350, 300, 40);
-
 
         newGame.addActionListener(e->{
             try {
@@ -2775,23 +2732,6 @@ public class DrawingPanel extends JPanel {
         init();
         createOffscreenImage();
         repaint();
-        paintGrid();
     }
 
-    private void paintGrid() {
-        offscreen.setColor(Color.BLACK);
-        for (int row = 0; row < rows; row++) {
-            int x1 = padX;
-            int y1 = padY + row * cellHeight;
-            int x2 = padX + boardWidth;
-            offscreen.drawLine(x1, y1, x2, y1);
-        }
-
-        for (int col = 0; col < cols; col++) {
-            int x1 = padX + col * cellWidth;
-            int y1 = padY;
-            int y2 = padY + boardHeight;
-            offscreen.drawLine(x1, y1, x1, y2);
-        }
-    }
 }
