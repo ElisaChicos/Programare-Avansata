@@ -6,7 +6,6 @@ import java.sql.SQLException;
 public class Main {
 
     public static void main(String[] args) throws IOException, SQLException {
-        //java -jar C:\Users\Asus\Documents\GitHub\Proiect-TicTacToe\out\artifacts\TicTacToe_jar\TicTacToe.jar
         MainFrame mainFrame = new MainFrame();
         mainFrame.setVisible(true);
         Game game = new Game();

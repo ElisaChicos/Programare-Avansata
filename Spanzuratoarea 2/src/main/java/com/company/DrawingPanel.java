@@ -6,8 +6,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,26 @@ public class DrawingPanel extends JPanel {
     private int gresite = 0;
     private int ghicite = 0;
 
+    public String comunicare(String tabel) {
+        String serverAddress = "127.0.0.1";
+        int PORT = 8100;
+        try (
+                Socket socket = new Socket(serverAddress, PORT);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+        ) {
+            String request = tabel;
+            out.println(request);
+            String response = in.readLine();
+            System.out.println(response);
+            return response;
+        } catch (UnknownHostException e) {
+            System.err.println("No server listening... " + e);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "Tabelul nu exista";
+    }
 
     public Boolean verificareCategorie(String categorie) {
         List<String> list = new ArrayList<>();
@@ -108,7 +129,8 @@ public class DrawingPanel extends JPanel {
 
     public void playGame(String table) throws SQLException, IOException {
         Game game = new Game();
-        String word = game.generareCuvant(table);
+//        String word = game.generareCuvant(table);
+        String word = comunicare(table);
         frame.configPanel.modifyHelpMessage("Succes!");
         BufferedImage myPicture = ImageIO.read(new File("Img/1.png"));
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
@@ -207,7 +229,6 @@ public class DrawingPanel extends JPanel {
         J.setBounds(590, 450, 45, 45);
         K.setBounds(650, 450, 45, 45);
         L.setBounds(710, 450, 45, 45);
-
         M.setBounds(20, 510, 45, 45);
         N.setBounds(80, 510, 45, 45);
         O.setBounds(140, 510, 45, 45);
@@ -2641,6 +2662,7 @@ public class DrawingPanel extends JPanel {
             }
         });
     }
+
     public void aiCastigat(String cuvant) throws IOException {
         frame.configPanel.modifyHelpMessage("Felicitari!");
         BufferedImage myPicture = ImageIO.read(new File("Img/win2.png"));
@@ -2663,7 +2685,7 @@ public class DrawingPanel extends JPanel {
         newGame.setBounds(350, 300, 300, 40);
         exit.setBounds(350, 350, 300, 40);
 
-        newGame.addActionListener(e->{
+        newGame.addActionListener(e -> {
             try {
                 frame.canvas.removeAll();
                 repaint();
@@ -2675,7 +2697,7 @@ public class DrawingPanel extends JPanel {
                 ioException.printStackTrace();
             }
         });
-        exit.addActionListener(e-> frame.dispose());
+        exit.addActionListener(e -> frame.dispose());
 
     }
 
@@ -2702,7 +2724,7 @@ public class DrawingPanel extends JPanel {
         exit.setBounds(350, 350, 300, 40);
 
 
-        newGame.addActionListener(e->{
+        newGame.addActionListener(e -> {
             try {
                 frame.canvas.removeAll();
                 repaint();
@@ -2714,7 +2736,7 @@ public class DrawingPanel extends JPanel {
                 ioException.printStackTrace();
             }
         });
-        exit.addActionListener(e-> frame.dispose());
+        exit.addActionListener(e -> frame.dispose());
 
     }
 

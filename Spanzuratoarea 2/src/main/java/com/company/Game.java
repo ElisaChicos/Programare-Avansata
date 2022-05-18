@@ -104,14 +104,7 @@ public class Game {
         }
     }
 
-    public String generareCuvant(String tabel) throws SQLException {
-        var categorii = new CategoriesDao();
-        int idMax = categorii.idMaxim(tabel);
-        Random rand = new Random();
-        int idRandom = rand.nextInt(idMax);
-        return categorii.findById(idRandom, tabel);
 
-    }
 
     public List<Integer> cautareLitera(String litera, String cuvant) {
         List<Integer> list = new ArrayList<>();

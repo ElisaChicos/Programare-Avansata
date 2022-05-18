@@ -14,7 +14,6 @@ public class Server {
             while (true) {
                 System.out.println("Waiting for a client ...");
                 Socket socket = serverSocket.accept();
-                // Execute the client's request in a new thread
                 new ClientThread(socket).start();
             }
         } catch (IOException e) {
