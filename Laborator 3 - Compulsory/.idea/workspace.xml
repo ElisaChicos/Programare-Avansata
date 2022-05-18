@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0af01e23-7c9c-4d5d-8a8c-c409521622f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Laborator 2 - Homework/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laborator 3 - Homework/out/production/Compulsory/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laborator 3 - Homework/out/production/Compulsory/com/company/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laborator 3 - Homework/out/production/Compulsory/com/company/Storage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laborator 3 - Homework/out/production/Compulsory/com/company/Storage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laborator 3 - Homework/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Laborator 3 - Homework/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laborator 3 - Homework/src/com/company/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Laborator 3 - Homework/src/com/company/Storage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,17 +106,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -131,7 +123,10 @@
       <workItem from="1646825373028" duration="3894000" />
       <workItem from="1646829817571" duration="1186000" />
       <workItem from="1646927403634" duration="1859000" />
-      <workItem from="1646929740824" duration="464000" />
+      <workItem from="1646929740824" duration="623000" />
+      <workItem from="1647360916359" duration="861000" />
+      <workItem from="1647362710059" duration="13000" />
+      <workItem from="1647528212796" duration="610000" />
     </task>
     <servers />
   </component>
