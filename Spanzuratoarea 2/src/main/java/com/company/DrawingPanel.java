@@ -128,8 +128,6 @@ public class DrawingPanel extends JPanel {
     }
 
     public void playGame(String table) throws SQLException, IOException {
-        Game game = new Game();
-//        String word = game.generareCuvant(table);
         String word = comunicare(table);
         frame.configPanel.modifyHelpMessage("Succes!");
         BufferedImage myPicture = ImageIO.read(new File("Img/1.png"));

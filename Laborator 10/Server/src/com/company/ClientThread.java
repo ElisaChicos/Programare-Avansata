@@ -1,10 +1,10 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.Arrays;
+import java.util.List;
 
 class ClientThread extends Thread {
     private final Socket socket;
@@ -26,7 +26,6 @@ class ClientThread extends Thread {
                 out.println(message);
                 out.flush();
 
-
                 String request = in.readLine();
                 StringBuilder response = new StringBuilder();
 
@@ -43,6 +42,49 @@ class ClientThread extends Thread {
                     response.append(request);
                     response.append(".");
                 }
+
+
+                if (request.contains("register")) {
+                    List<String> params = Arrays.asList(request.split(" "));
+                    FileReader fr = new FileReader("register.txt");
+                    BufferedReader br = new BufferedReader(fr);
+                    String line;
+                    int ex = 0;
+                    while ((line = br.readLine()) != null) {
+                        if (line.equals(params.get(1))) {
+
+                            response.append("This name already exists.");
+                            ex = 1;
+                        }
+                    }
+                    fr.close();
+                    if (ex == 0) {
+                        FileWriter fw = new FileWriter("register.txt", true);
+                        fw.write(params.get(1) + "\n");
+                        fw.close();
+                        response.append("Added");
+                    }
+                }
+
+                if (request.contains("login")) {
+                    List<String> params = Arrays.asList(request.split(" "));
+                    FileReader fr = new FileReader("register.txt");
+                    BufferedReader br = new BufferedReader(fr);
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        if (line.equals(params.get(1))) {
+
+                            response.append("Logged!");
+                        }
+                    }
+                    fr.close();
+                }
+
+
+
+
+
+
                 out.println(response.toString());
                 out.flush();
 
