@@ -64,4 +64,8 @@ public class Cities {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
+
+    public static String Print(){
+        return "Class from Lab 9 - Compulsory";
+    }
 }
