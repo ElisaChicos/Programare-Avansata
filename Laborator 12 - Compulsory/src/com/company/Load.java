@@ -26,7 +26,7 @@ public class Load {
 
             ClassLoader cl = new URLClassLoader(urls);
 
-            cls = cl.loadClass("Cities");
+            cls = cl.loadClass("Country");
 
             System.out.println(cls.getPackage().getName());
 
@@ -45,7 +45,7 @@ public class Load {
     @Test
     void invokeStaticMethod() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-        Method method = cls.getMethod("Print", String.class);
+        Method method = cls.getDeclaredMethod("setContinent");
 
         method.setAccessible(true);
 
