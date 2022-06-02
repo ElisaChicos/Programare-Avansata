@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Spanzuratoarea:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Spanzuratoarea_jar</output-path>
+    <root id="archive" name="Spanzuratoarea.jar">
+      <element id="module-output" name="Spanzuratoarea" />
+      <element id="extracted-dir" path="E:/Downloads/ojdbc11.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

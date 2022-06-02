@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Laborator 9 - Compulsory:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Laborator_9___Compulsory_jar</output-path>
+    <root id="archive" name="Laborator 9 - Compulsory_jar.jar">
+      <element id="module-output" name="Laborator 9 - Compulsory" />
+      <element id="extracted-dir" path="E:/Downloads/ojdbc11.jar" path-in-jar="/" />
+      <element id="archive" name="la9.jar" />
+    </root>
+  </artifact>
+</component>

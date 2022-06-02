@@ -7,6 +7,29 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
+    private final List<Player> players = new ArrayList<>();
+
+    public Game()
+    {
+
+    }
+
+    public void play()
+    {
+        while (true) {
+            new Thread(players.get(0)).start();
+            new Thread(players.get(1)).start();
+            new Thread(players.get(2)).start();
+        }
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
 
     public void adaugareCategoriePlante() throws IOException, SQLException {
         var categoryDao = new CategoriesDao();
@@ -106,15 +129,6 @@ public class Game {
 
 
 
-    public List<Integer> cautareLitera(String litera, String cuvant) {
-        List<Integer> list = new ArrayList<>();
-        char[] c = cuvant.toCharArray();
-        for (int i = 0; i < c.length; i++) {
-            if (c[i] == litera.charAt(0)) {
-                list.add(i);
-            }
-        }
-        return list;
-    }
+
 
 }

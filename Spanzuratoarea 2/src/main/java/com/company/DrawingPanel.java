@@ -13,8 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
-public class DrawingPanel extends JPanel {
+public class DrawingPanel extends JPanel{
     final MainFrame frame;
     private final int canvasWidth = 800, canvasHeight = 600;
     private BufferedImage image;
@@ -23,26 +24,16 @@ public class DrawingPanel extends JPanel {
     private int lungime;
     private int gresite = 0;
     private int ghicite = 0;
+    private int turn = 0;
 
-    public String comunicare(String tabel) {
-        String serverAddress = "127.0.0.1";
-        int PORT = 8100;
-        try (
-                Socket socket = new Socket(serverAddress, PORT);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
-        ) {
-            String request = tabel;
-            out.println(request);
-            String response = in.readLine();
-            System.out.println(response);
-            return response;
-        } catch (UnknownHostException e) {
-            System.err.println("No server listening... " + e);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "Tabelul nu exista";
+
+    public String generareCuvant(String tabel) throws SQLException {
+        var categorii = new CategoriesDao();
+        int idMax = categorii.idMaxim(tabel);
+        Random rand = new Random();
+        int idRandom = rand.nextInt(idMax);
+        return categorii.findById(idRandom, tabel);
+
     }
 
     public Boolean verificareCategorie(String categorie) {
@@ -128,7 +119,7 @@ public class DrawingPanel extends JPanel {
     }
 
     public void playGame(String table) throws SQLException, IOException {
-        String word = comunicare(table);
+        String word = generareCuvant(table);
         frame.configPanel.modifyHelpMessage("Succes!");
         BufferedImage myPicture = ImageIO.read(new File("Img/1.png"));
         JLabel picLabel = new JLabel(new ImageIcon(myPicture));
@@ -254,7 +245,8 @@ public class DrawingPanel extends JPanel {
             listaLabel.add(label);
         }
         lungime = word.length();
-
+        Game g = new Game();
+        List<Player> players = g.getPlayers();
 
         A.addActionListener(e -> {
             frame.canvas.remove(A);
@@ -263,8 +255,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(50, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("a", word);
+            List<Integer> lista =  players.get(0).cautareLitera("a", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -361,8 +352,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(110, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("b", word);
+            List<Integer> lista = players.get(0).cautareLitera("b", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -457,8 +447,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(170, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("c", word);
+            List<Integer> lista = players.get(0).cautareLitera("c", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -553,8 +542,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(230, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("d", word);
+            List<Integer> lista = players.get(0).cautareLitera("d", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -649,8 +637,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(290, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("e", word);
+            List<Integer> lista = players.get(0).cautareLitera("e", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -745,8 +732,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(350, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("f", word);
+            List<Integer> lista = players.get(0).cautareLitera("f", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -841,8 +827,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(410, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("g", word);
+            List<Integer> lista = players.get(0).cautareLitera("g", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -937,8 +922,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(470, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("h", word);
+            List<Integer> lista = players.get(0).cautareLitera("h", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1034,8 +1018,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(530, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("i", word);
+            List<Integer> lista = players.get(0).cautareLitera("i", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1130,8 +1113,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(590, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("j", word);
+            List<Integer> lista = players.get(0).cautareLitera("j", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1226,8 +1208,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(650, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("k", word);
+            List<Integer> lista = players.get(0).cautareLitera("k", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1322,8 +1303,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(710, 450, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("l", word);
+            List<Integer> lista = players.get(0).cautareLitera("l", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1418,8 +1398,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(20, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("m", word);
+            List<Integer> lista = players.get(0).cautareLitera("m", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1514,8 +1493,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(80, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("n", word);
+            List<Integer> lista = players.get(0).cautareLitera("n", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1610,8 +1588,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(140, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("o", word);
+            List<Integer> lista = players.get(0).cautareLitera("o", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1706,8 +1683,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(200, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("p", word);
+            List<Integer> lista = players.get(0).cautareLitera("p", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1802,8 +1778,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(260, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("r", word);
+            List<Integer> lista = players.get(0).cautareLitera("r", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1898,8 +1873,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(320, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("s", word);
+            List<Integer> lista = players.get(0).cautareLitera("s", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -1994,8 +1968,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(380, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("t", word);
+            List<Integer> lista = players.get(0).cautareLitera("t", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -2090,8 +2063,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(440, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("u", word);
+            List<Integer> lista = players.get(0).cautareLitera("u", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -2186,8 +2158,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(500, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("v", word);
+            List<Integer> lista = players.get(0).cautareLitera("v", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -2282,8 +2253,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(560, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("w", word);
+            List<Integer> lista = players.get(0).cautareLitera("w", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -2378,8 +2348,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(620, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("x", word);
+            List<Integer> lista = players.get(0).cautareLitera("x", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -2474,8 +2443,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(680, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("y", word);
+            List<Integer> lista = players.get(0).cautareLitera("y", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -2570,8 +2538,7 @@ public class DrawingPanel extends JPanel {
             JButton pressed = new JButton(icon);
             frame.canvas.add(pressed);
             pressed.setBounds(740, 510, 45, 45);
-            Game g = new Game();
-            List<Integer> lista = g.cautareLitera("z", word);
+            List<Integer> lista = players.get(0).cautareLitera("z", word);
             if (lista.size() == 0) {
                 gresite++;
                 switch (gresite) {
@@ -2753,5 +2720,4 @@ public class DrawingPanel extends JPanel {
         createOffscreenImage();
         repaint();
     }
-
 }

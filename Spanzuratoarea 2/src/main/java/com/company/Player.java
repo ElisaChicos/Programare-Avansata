@@ -1,48 +1,46 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player implements Runnable {
-    private static int index = 1;
-    private final int id;
-    private String username;
-    private int score;
-    private boolean isAI;
+   private String name;
+   private Game game;
+   private Integer id;
 
-
-    public Player(String username, int score, boolean isAI) {
-        this.id = index;
-        index++;
-        this.username = username;
-        this.score = score;
-        this.isAI = isAI;
+    public Player(String name, Integer id) {
+        this.name = name;
+        this.id = id;
     }
 
-    public int getId() {
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public synchronized List<Integer> cautareLitera(String litera, String cuvant) {
+        List<Integer> list = new ArrayList<>();
+        char[] c = cuvant.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == litera.charAt(0)) {
+                list.add(i);
+            }
+        }
+        return list;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public boolean isAI() {
-        return isAI;
-    }
-
-    public void setAI(boolean AI) {
-        isAI = AI;
-    }
 
     @Override
     public void run() {

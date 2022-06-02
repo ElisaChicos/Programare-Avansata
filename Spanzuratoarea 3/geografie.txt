@@ -1,0 +1,17 @@
+clima
+continent
+emisfera
+fluviu
+geotermala
+crater
+depresiune
+laguna
+lunca
+munti
+orogeneza
+sedimentare
+vulcan
+ciclon
+ecuator
+latitudine
+longitudine
