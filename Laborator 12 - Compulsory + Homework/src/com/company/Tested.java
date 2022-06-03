@@ -2,7 +2,22 @@ package com.company;
 
 import org.junit.Test;
 
+import java.util.Locale;
+
 public class Tested {
+    public int a;
+    private int b;
+
+    private String ex1(String s)
+    {
+        return s.toLowerCase(Locale.ROOT);
+    }
+
+    protected Integer ex2(Integer a, Integer b)
+    {
+        return a+b;
+    }
+
     @Test
     public static void m1() {
     }

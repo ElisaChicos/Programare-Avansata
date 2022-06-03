@@ -16,14 +16,14 @@ public class Main {
 
 //        Class c = cls2.loadDirectory(new File(cls2.getPath()));
 
-
-        LoadMethods load = new LoadMethods(c);
-        load.staticMethods();
-        load.parametersMethods();
+//
+//        LoadMethods load = new LoadMethods(c);
+//        load.staticMethods();
+//        load.parametersMethods();
 
         Command com = new Command();
+//        com.javapCommand(c);
         com.javapCommand(c);
-
     }
 
 }
