@@ -74,8 +74,8 @@ public class LoadClass{
                 } else {
                     String s = file.getCanonicalPath();
                     String[] parts = s.split("\\\\");
-                    System.out.println(parts[11]);
-                    String[] p = parts[11].split("\\.");
+                    System.out.println(parts[parts.length-1]);
+                    String[] p = parts[parts.length-1].split("\\.");
 
                     if(p[0].toLowerCase(Locale.ROOT).equals(this.getName().toLowerCase(Locale.ROOT)))
                     {
@@ -84,8 +84,6 @@ public class LoadClass{
                         URL[] urls = new URL[]{url};
                         ClassLoader cl = new URLClassLoader(urls);
                         cls = cl.loadClass(this.getName());
-
-
                     }
                     else
                     {
